@@ -19,3 +19,8 @@ type Row = [Player]
 
 data Player = O | B | X
   deriving (Ord, Eq, Show)
+
+-- >>> blank
+-- [[B,B,B,B,B,B,B],[B,B,B,B,B,B,B],[B,B,B,B,B,B,B],[B,B,B,B,B,B,B],[B,B,B,B,B,B,B],[B,B,B,B,B,B,B]]
+blank :: Board
+blank = replicate rows (replicate cols B)
