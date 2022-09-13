@@ -19,13 +19,3 @@ type Row = [Player]
 
 data Player = O | B | X
   deriving (Ord, Eq, Show)
-
-testBoard :: Board
-testBoard =
-  [ [B, B, B, B, B, B, B],
-    [B, B, B, B, B, B, B],
-    [B, B, B, B, B, B, B],
-    [B, B, B, X, X, B, B],
-    [B, B, O, O, X, B, B],
-    [B, O, O, X, X, X, O]
-  ]

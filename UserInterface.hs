@@ -1,9 +1,9 @@
 module UserInterface where
 
-import Board (Board, Player (..), cols, testBoard)
+import Board (Board, Player (..), cols)
 
 {-
->>> showBoard testBoard
+> showBoard testBoard
 .......
 .......
 .......
@@ -21,6 +21,16 @@ showBoard b =
     showRow = map showPlayer
     line = replicate cols '-'
     nums = take cols ['0' ..]
+
+testBoard :: Board
+testBoard =
+  [ [B, B, B, B, B, B, B],
+    [B, B, B, B, B, B, B],
+    [B, B, B, B, B, B, B],
+    [B, B, B, X, X, B, B],
+    [B, B, O, O, X, B, B],
+    [B, O, O, X, X, X, O]
+  ]
 
 showPlayer :: Player -> Char
 showPlayer O = 'O'
