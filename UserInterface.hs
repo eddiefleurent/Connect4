@@ -81,3 +81,8 @@ move i b p = b'
     placeRow (bs, _ : ps) = bs ++ (c' : ps)
     c' = placeStone pTup
     b' = transpose $ placeRow rTup
+
+isValidMove :: Int -> Board -> Bool
+isValidMove i b = head r == B
+  where
+    r = column b !! i
