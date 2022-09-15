@@ -2,7 +2,7 @@
 
 module UserInterface where
 
-import Board (Board, Player (..), Row, cols, column)
+import Board (Board, Player (..), Row, cols, column, testBoard)
 import Data.Char (digitToInt, intToDigit, isDigit)
 import Data.List (transpose)
 
@@ -68,10 +68,10 @@ getCol p = do
       getCol p
 
 move :: Int -> Board -> Player -> Board
-move i b p = undefined
+move i b p = b'
   where
     c = column b !! i
-    rTup = splitAt i b
+    rTup = splitAt i $ column b
     pTup = span (== B) c
     placeStone :: ([Player], [Player]) -> [Player]
     -- take a spanned tuple and add the stone based on player
@@ -80,6 +80,4 @@ move i b p = undefined
     -- take a split tuple and replace the modified column
     placeRow (bs, _ : ps) = bs ++ (c' : ps)
     c' = placeStone pTup
-    ncpn = transpose $ placeRow rTup
-
--- >>> splitAt 6 "Hello World!"
+    b' = transpose $ placeRow rTup
