@@ -1,19 +1,21 @@
+{-# OPTIONS_GHC -Wno-incomplete-patterns #-}
+
 module UserInterface where
 
-import Board (Board, Player (..), cols)
+import Board (Board, Player (..), Row, cols, column)
 import Data.Char (digitToInt, intToDigit, isDigit)
+import Data.List (transpose)
 
-{-
-> showBoard testBoard
-.......
-.......
-.......
-...XX..
-..OOX..
-.OOXXXO
--------
-0123456
--}
+-- | Display Board on screen
+-- > showBoard testBoard
+-- .......
+-- .......
+-- .......
+-- ...XX..
+-- ..OOX..
+-- .OOXXXO
+-- -------
+-- 0123456
 showBoard :: Board -> IO ()
 showBoard b =
   putStrLn (unlines (map showRow b ++ [line] ++ [nums]))
@@ -21,16 +23,6 @@ showBoard b =
     showRow = map showPlayer
     line = replicate cols '-'
     nums = take cols ['0' ..]
-
-testBoard :: Board
-testBoard =
-  [ [B, B, B, B, B, B, B],
-    [B, B, B, B, B, B, B],
-    [B, B, B, B, B, B, B],
-    [B, B, B, X, X, B, B],
-    [B, B, O, O, X, B, B],
-    [B, O, O, X, X, X, O]
-  ]
 
 showPlayer :: Player -> Char
 showPlayer O = 'O'
@@ -74,3 +66,20 @@ getCol p = do
     else do
       putStrLn "You expect to beat me, but you can't even follow simple instructions? Try again..."
       getCol p
+
+move :: Int -> Board -> Player -> Board
+move i b p = undefined
+  where
+    c = column b !! i
+    rTup = splitAt i b
+    pTup = span (== B) c
+    placeStone :: ([Player], [Player]) -> [Player]
+    -- take a spanned tuple and add the stone based on player
+    placeStone (_ : bs, ps) = bs ++ (p : ps)
+    placeRow :: ([Row], [Row]) -> [Row]
+    -- take a split tuple and replace the modified column
+    placeRow (bs, _ : ps) = bs ++ (c' : ps)
+    c' = placeStone pTup
+    ncpn = transpose $ placeRow rTup
+
+-- >>> splitAt 6 "Hello World!"
