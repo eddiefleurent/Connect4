@@ -1,6 +1,6 @@
 module Board where
 
-import Data.List (transpose)
+import Data.List (group, transpose)
 
 rows :: Int
 rows = 6
@@ -33,8 +33,22 @@ row = id
 column :: Board -> [Row]
 column = transpose
 
-diagonal :: Board -> [Row]
-diagonal = undefined
+players :: [Row] -> [[Player]]
+players = id
+
+boardToPlayers :: Board -> [[Player]]
+boardToPlayers = players . column
+
+diagonals :: [[Player]] -> [[Player]]
+--from data.universe.helpers
+diagonals = drop 1 . go []
+  where
+    go b es_ =
+      [h | h : _ <- b] : case es_ of
+        [] -> transpose ts
+        e : es -> go (e : ts) es
+      where
+        ts = [t | _ : t <- b]
 
 testBoard :: Board
 testBoard =
@@ -58,3 +72,14 @@ blank = replicate rows (replicate cols B)
 -- True
 isFull :: Board -> Bool
 isFull brd = notElem B $ concat brd
+
+isWin :: Player -> Board -> Bool
+isWin p b = not (null (rs ++ cs ++ ds))
+  where
+    groupP :: [[Player]] -> [[Player]]
+    groupP = group . concat
+    filterP :: [[Player]] -> [[Player]]
+    filterP xss = [xs | head (head xss) == p, xs <- xss, length xs == win]
+    rs = filterP . groupP . players $ row b
+    cs = filterP . groupP $ boardToPlayers b
+    ds = filterP . groupP . diagonals $ boardToPlayers b
