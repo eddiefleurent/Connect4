@@ -60,6 +60,16 @@ testBoard =
     [B, O, O, X, X, X, O]
   ]
 
+testBoard' :: Board
+testBoard' =
+  [ [B, B, B, B, B, B, B],
+    [B, B, B, B, B, B, B],
+    [B, B, B, B, B, B, B],
+    [B, B, B, X, X, X, B],
+    [B, B, O, O, X, B, B],
+    [B, O, O, X, X, X, O]
+  ]
+
 -- >>> blank
 -- [[B,B,B,B,B,B,B],[B,B,B,B,B,B,B],[B,B,B,B,B,B,B],[B,B,B,B,B,B,B],[B,B,B,B,B,B,B],[B,B,B,B,B,B,B]]
 blank :: Board
@@ -74,12 +84,13 @@ isFull :: Board -> Bool
 isFull brd = notElem B $ concat brd
 
 isWin :: Player -> Board -> Bool
-isWin p b = not (null (rs ++ cs ++ ds))
+isWin p b = not $ null (rs ++ cs ++ ds ++ rds)
   where
     groupP :: [[Player]] -> [[Player]]
-    groupP = group . concat
+    groupP = concatMap group
     filterP :: [[Player]] -> [[Player]]
-    filterP xss = [xs | head (head xss) == p, xs <- xss, length xs == win]
-    rs = filterP . groupP . players $ row b
+    filterP xss = [xs | xs <- xss, head xs == p, length xs >= win]
+    rs = filterP . groupP $ row b
     cs = filterP . groupP $ boardToPlayers b
     ds = filterP . groupP . diagonals $ boardToPlayers b
+    rds = filterP . groupP . diagonals . reverse $ boardToPlayers b

@@ -2,7 +2,7 @@
 
 module UserInterface where
 
-import Board (Board, Player (..), Row, cols, column, testBoard)
+import Board (Board, Player (..), Row, cols, column, diagonals, testBoard)
 import Data.Char (digitToInt, intToDigit, isDigit)
 import Data.List (transpose)
 
@@ -86,3 +86,6 @@ isValidMove :: Int -> Board -> Bool
 isValidMove i b = head r == B
   where
     r = column b !! i
+
+play :: Player -> Board -> IO ()
+play p b = undefined
