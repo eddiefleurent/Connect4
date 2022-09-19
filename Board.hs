@@ -64,7 +64,7 @@ testBoard' :: Board
 testBoard' =
   [ [B, B, B, B, B, B, B],
     [B, B, B, B, B, B, B],
-    [B, B, B, B, B, B, B],
+    [B, B, X, B, B, B, B],
     [B, B, B, X, X, X, B],
     [B, B, O, O, X, B, B],
     [B, O, O, X, X, X, O]

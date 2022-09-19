@@ -2,7 +2,7 @@
 
 module UserInterface where
 
-import Board (Board, Player (..), Row, cols, column, diagonals, testBoard)
+import Board (Board, Player (..), Row, blank, cols, column, diagonals, isFull, isWin, testBoard)
 import Data.Char (digitToInt, intToDigit, isDigit)
 import Data.List (transpose)
 
@@ -41,7 +41,7 @@ turn O = X
 turn _ = error "B player cannot take a turn"
 
 movePrompt :: Player -> String
-movePrompt p = concat ["Show me what you got, player ", show p, "!\n Enter a column number from 0 to ", show cols, "to drop your stone.\nDon't think too much, you'll lose anyways."]
+movePrompt p = concat ["Show me what you got, player ", show p, "!\nEnter a column number from 0 to ", show (cols -1), " to drop your stone.\nDon't think too much, you'll lose anyways."]
 
 -- >>> validateInt "1"
 -- True
@@ -55,7 +55,7 @@ validateInt i
   | otherwise = False
   where
     ih = head i --safe to call head as emptiness is validated
-    colsC = intToDigit cols
+    colsC = intToDigit $ cols - 1
 
 getCol :: Player -> IO Int
 getCol p = do
@@ -88,4 +88,17 @@ isValidMove i b = head r == B
     r = column b !! i
 
 play :: Player -> Board -> IO ()
-play p b = undefined
+play p b
+  | isWin O b = putStrLn "Player O wins!"
+  | isWin X b = putStrLn "Player X wins!"
+  | isFull b = putStrLn "Somehow you managed to draw..."
+  | otherwise = do
+    i <- getCol p
+    if isValidMove i b
+      then do
+        let b' = move i b p
+        showBoard b'
+        play (turn p) b'
+      else do
+        putStrLn "Stop trying to cheat, that is not a valid move. Try again..."
+        play p b
