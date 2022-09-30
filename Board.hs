@@ -253,8 +253,12 @@ playBot b p
     winBoard = checkWinningMove b p
     defenseNeeded = defense b $ turn p
     move' i
-      | isValidMove i b = move i b p
+      | isValidMove i b && null silverPlatter = b'
       | otherwise = bestScore b
+      where
+        -- Check if this move will grant opponent a win
+        silverPlatter = defense b' p
+        b' = move i b p
 
 checkWinningMove :: Board -> Player -> [Board]
 checkWinningMove b p = [move i b p | i <- [0 .. (cols - 1)], isValidMove i b, isWin p (move i b p)]
