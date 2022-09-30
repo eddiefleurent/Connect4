@@ -237,7 +237,7 @@ pruneTree b = prune searchDepth $ tree b
 -- | Play the perfect game.
 -- Negamax with no optimizations, such as this implementation, struggles to find winning branches in the early game.
 -- Alpha beta pruning, etc would be the natural progression down the optimization path.
--- The perfect game is encoded for the first moves and minimax takes over after.
+-- The perfect game is encoded for the first moves and negamax takes over after.
 -- Inspired by the perfect connect 4 player created by Pascal Pons http://blog.gamesolver.org/solving-connect-four/01-introduction/
 playBot :: Board -> Player -> Board
 playBot b p
