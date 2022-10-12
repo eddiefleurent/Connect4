@@ -260,9 +260,11 @@ playBot b p
         silverPlatter = defense b' p
         b' = move i b p
 
+-- | Check if any moves will win you the game
 checkWinningMove :: Board -> Player -> [Board]
 checkWinningMove b p = [move i b p | i <- [0 .. (cols - 1)], isValidMove i b, isWin p (move i b p)]
 
+-- | Check if opponent can win with next move
 defense :: Board -> Player -> [Int]
 defense b p = [i | i <- [0 .. (cols - 1)], isValidMove i b, isWin p (move i b p)]
 
@@ -297,7 +299,7 @@ negamax (Node (_ : _) (_ : _)) = undefined -- please the compiler, execution pat
 -- Positive (winning) score can be computed as 22 minus number of stone played by the winning at the end of the game.
 -- Negative (losing) score can be computed as number of stone played by the winner at the end of the game minus 22.
 -- You can notice that after playing the best move, the score of your opponent is the opposite of your score.
--- http://blog.gamesolver.org/solving-connect-four/02-test-protocol/
+-- from: http://blog.gamesolver.org/solving-connect-four/02-test-protocol/
 bestScore :: Board -> Board
 bestScore b = fst best
   where
