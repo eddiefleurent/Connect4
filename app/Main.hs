@@ -1,6 +1,7 @@
 module Main where
 
-import Board (Player (O, X), blank, play, testBoard, testBoard')
+import Actions (play)
+import Board (Player (O), blank)
 import System.IO (BufferMode (NoBuffering), hSetBuffering, stdout)
 
 main :: IO ()

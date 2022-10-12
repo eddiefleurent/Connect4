@@ -51,7 +51,7 @@ executable Connect4
     main-is:          Main.hs
 
     -- Modules included in this executable, other than Main.
-    other-modules:    Board
+    other-modules:    Board, Actions, Game, Solver, Tree
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
