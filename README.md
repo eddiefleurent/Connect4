@@ -8,5 +8,4 @@ Uses negamax algorithm to solve positions. Pascal describes several optimization
 
 ## Instructions
 1. `cd` into "app"
-2. Compile using `ghc -O2 Main.hs`
-3. Execute `./Main` start the program and follow the prompts. Don't get too initimidated by it :D
+2. Execute `./Main` start the program and follow the prompts. Don't get too initimidated by it :D
