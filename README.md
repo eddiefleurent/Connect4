@@ -7,4 +7,6 @@ It's nowhere near that good. But this one at least tries to be funny.
 Uses negamax algorithm to solve positions. Pascal describes several optimizations to be made, this is simply the first step mixed in with "The Perfect Game" to help in the early game.
 
 ## Instructions
-execute `./Main` in your command line to start the program and follow the prompts. Don't get too initimidated by it
+1. `cd` into "app"
+2. Compile using `ghc -O2 Main.hs`
+3. Execute `./Main` start the program and follow the prompts. Don't get too initimidated by it :D
