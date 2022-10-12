@@ -191,7 +191,7 @@ getCol p = do
 
 -- | Talk a bit of smack
 moveTaunt :: [Char]
-moveTaunt = "I looked forward in time to view alternate futures to see all the possible outcomes of the coming conflict... I saw 14,000,605 futures, and only one in which you win: The power goes out.\n"
+moveTaunt = "I looked forward in time to view alternate futures and see all the possible outcomes... I saw 14,000,605 futures, and only one in which you win: The power goes out.\n"
 
 -- | Game loop
 play :: Player -> Board -> IO ()
