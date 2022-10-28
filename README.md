@@ -1,5 +1,5 @@
 # Connect4
-Connect Four game carnival style ;)
+Connect Four command line game - carnival style ;)
 
 Inspired by the perfect connect 4 player created by Pascal Pons http://blog.gamesolver.org/solving-connect-four/01-introduction/
 It's nowhere near that good. But this one at least tries to be funny.
